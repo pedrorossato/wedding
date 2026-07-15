@@ -107,6 +107,7 @@ Copiar `.env.example` para `.env`. Principais:
 | 4 | migrations + entidades JPA | ✅ |
 | 5 | auth JWT + env vars | ✅ |
 | 6 | CRUD evento | ✅ |
+| 7 | CRUD convidados | ✅ |
 | 5-27 | ... | ⬜ |
 
 ## Atualizar AGENTS.md
