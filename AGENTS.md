@@ -108,6 +108,7 @@ Copiar `.env.example` para `.env`. Principais:
 | 5 | auth JWT + env vars | ✅ |
 | 6 | CRUD evento | ✅ |
 | 7 | CRUD convidados | ✅ |
+| 8 | confirmação de presença | ✅ |
 | 5-27 | ... | ⬜ |
 
 ## Atualizar AGENTS.md

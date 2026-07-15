@@ -73,4 +73,10 @@ public class GuestController {
             event.rsvpDeadline()
         ));
     }
+
+    @PostMapping("/api/invite/{uuid}/confirm")
+    public ResponseEntity<InviteResponse> confirm(@PathVariable UUID uuid,
+                                                   @Valid @RequestBody ConfirmRequest request) {
+        return ResponseEntity.ok(guestService.confirm(uuid, request));
+    }
 }
