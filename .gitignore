@@ -6,6 +6,11 @@ Thumbs.db
 desktop.ini
 
 # ======================
+# OpenCode
+# ======================
+opencode.json
+
+# ======================
 # IDEs e editores
 # ======================
 .idea/

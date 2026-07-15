@@ -252,3 +252,4 @@ services:
 - **Stripe:** usar `payment_intent` com `automatic_payment_methods` habilitando `card`, `pix`, `boleto` — o próprio Stripe Checkout ou Elements exibe as opções para o usuário escolher
 - **Frontend:** design system 100% custom, sem bibliotecas UI prontas (ex.: Material), para evitar aspecto genérico
 - **Segurança:** validações de data no backend (nunca confiar apenas no frontend)
+- **AGENTS.md:** manter arquivo atualizado a cada commit (adicionar/remover informações, atualizar status) para reduzir tokens em prompts futuros
