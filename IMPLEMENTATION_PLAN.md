@@ -169,7 +169,7 @@ wedding/
 ### Frontend — Admin
 | # | Commit | Descrição |
 |---|--------|-----------|
-| 14 | `feat: login admin` | Tela de login, `AuthService`, guard de rota, interceptor JWT |
+| 14 | `feat: login admin` | Tela de login, `AuthService`, guard de rota, interceptor JWT. Senha criptografada com AES-256-GCM (Web Crypto API) usando `LOGIN_ENCRYPTION_KEY` compartilhada com backend — IV (12 bytes) aleatório concatenado ao ciphertext e codificado em Base64 |
 | 15 | `feat: dashboard admin` | Página com cards de estatísticas em tempo real |
 | 16 | `feat: admin — evento` | Formulário editar data do casamento e data limite RSVP |
 | 17 | `feat: admin — convidados` | Lista, CRUD, botão copiar link UUID para área de transferência |
@@ -200,6 +200,7 @@ wedding/
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=senha-segura
 JWT_SECRET=chave-segura-jwt
+LOGIN_ENCRYPTION_KEY=chave-compartilhada-para-criptografar-senha
 
 # Database
 DB_URL=jdbc:postgresql://localhost:5432/wedding
@@ -222,6 +223,7 @@ STRIPE_PUBLISHABLE_KEY=pk_live_...
 ```
 API_URL=https://api.seusite.com
 STRIPE_PUBLISHABLE_KEY=pk_live_...
+LOGIN_ENCRYPTION_KEY=mesma-chave-compartilhada-do-backend
 ```
 
 ## Docker Compose (dev)

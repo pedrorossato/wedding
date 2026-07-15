@@ -9,12 +9,14 @@ public class WeddingProperties {
 
     private Admin admin = new Admin();
     private Jwt jwt = new Jwt();
+    private LoginEncryption loginEncryption = new LoginEncryption();
     private Aws aws = new Aws();
     private Stripe stripe = new Stripe();
     private Cors cors = new Cors();
 
     public Admin getAdmin() { return admin; }
     public Jwt getJwt() { return jwt; }
+    public LoginEncryption getLoginEncryption() { return loginEncryption; }
     public Aws getAws() { return aws; }
     public Stripe getStripe() { return stripe; }
     public Cors getCors() { return cors; }
@@ -37,6 +39,13 @@ public class WeddingProperties {
         public void setSecret(String secret) { this.secret = secret; }
         public long getExpiration() { return expiration; }
         public void setExpiration(long expiration) { this.expiration = expiration; }
+    }
+
+    public static class LoginEncryption {
+        private String key;
+
+        public String getKey() { return key; }
+        public void setKey(String key) { this.key = key; }
     }
 
     public static class Aws {

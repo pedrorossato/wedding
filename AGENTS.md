@@ -6,7 +6,7 @@
 - **Banco:** PostgreSQL 16 (Flyway migrations)
 - **Armazenamento:** AWS S3 (fotos e imagens de presentes)
 - **Pagamentos:** Stripe (cartão, Pix, Boleto)
-- **Auth:** JWT (credenciais admin via env vars)
+- **Auth:** JWT (credenciais admin via env vars), senha criptografada AES-256-GCM no login (chave compartilhada `LOGIN_ENCRYPTION_KEY`)
 - **Dev:** Docker Compose (`docker compose up`)
 - **Deploy:** Frontend na Vercel, Backend JAR em Oracle Cloud
 
@@ -105,6 +105,7 @@ Copiar `.env.example` para `.env`. Principais:
 | 2 | scaffold Spring Boot + Maven | ✅ |
 | 3 | docker-compose dev | ✅ |
 | 4 | migrations + entidades JPA | ✅ |
+| 5 | auth JWT + env vars | ✅ |
 | 5-27 | ... | ⬜ |
 
 ## Atualizar AGENTS.md

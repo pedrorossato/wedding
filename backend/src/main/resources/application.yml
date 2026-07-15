@@ -30,6 +30,8 @@ wedding:
   jwt:
     secret: ${JWT_SECRET:chave-segura-jwt-muito-longa}
     expiration: 86400000
+  login-encryption:
+    key: ${LOGIN_ENCRYPTION_KEY:chave-compartilhada-login}
   aws:
     region: ${AWS_REGION:us-east-1}
     bucket: ${AWS_BUCKET:wedding-gallery}
