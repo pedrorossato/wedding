@@ -111,6 +111,7 @@ Copiar `.env.example` para `.env`. Principais:
 | 8 | confirmação de presença | ✅ |
 | 9 | CRUD presentes + gift_purchases | ✅ |
 | 10 | CRUD galeria | ✅ |
+| 11 | integração Stripe | ✅ |
 | 5-27 | ... | ⬜ |
 
 ## Atualizar AGENTS.md
