@@ -6,6 +6,8 @@ import com.pedrogio.wedding.gift.GiftRepository;
 import com.pedrogio.wedding.guest.GuestRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class StatsService {
 
@@ -29,8 +31,8 @@ public class StatsService {
         long confirmedGuests = guestRepository.countByConfirmed(true);
         long totalGifts = giftRepository.count();
         long giftedGifts = purchaseRepository.countGiftsWithPaidPurchases();
-        Long sum = purchaseRepository.sumPaidAmounts();
-        long totalGiftedValue = sum != null ? sum : 0L;
+        BigDecimal sum = purchaseRepository.sumPaidAmounts();
+        long totalGiftedValue = sum != null ? sum.longValue() : 0L;
         long totalPhotos = photoRepository.count();
 
         return new StatsResponse(

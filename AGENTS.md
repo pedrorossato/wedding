@@ -53,7 +53,7 @@ wedding/
 cp .env.example .env
 docker compose up
 
-# Apenas frontend
+# Apenas frontend (em outro terminal, com backend rodando)
 cd frontend && npm start           # http://localhost:4200
 
 # Apenas backend (requer PostgreSQL rodando)
@@ -82,10 +82,18 @@ Copiar `.env.example` para `.env`. Principais:
 | `ADMIN_USERNAME` | `admin` | Login admin |
 | `ADMIN_PASSWORD` | `admin123` | Senha admin |
 | `JWT_SECRET` | — | Chave secreta JWT (mín. 256 bits) |
+| `LOGIN_ENCRYPTION_KEY` | `chave-compartilhada-login` | Chave AES-256-GCM para criptografar senha no login (deve ser a mesma no frontend e backend) |
 | `AWS_REGION` | `us-east-1` | Região S3 |
 | `AWS_BUCKET` | `wedding-gallery` | Bucket S3 |
 | `STRIPE_SECRET_KEY` | — | Chave secreta Stripe |
 | `CORS_ALLOWED_ORIGINS` | `http://localhost:4200` | Origens CORS |
+
+### Frontend (`frontend/src/environments/environment.ts`)
+
+| Campo | Descrição |
+|-------|-----------|
+| `apiUrl` | URL base do backend (dev: `http://localhost:8080`) |
+| `loginEncryptionKey` | Deve ser idêntica ao `LOGIN_ENCRYPTION_KEY` do backend |
 
 ## Convenções
 
@@ -115,7 +123,8 @@ Copiar `.env.example` para `.env`. Principais:
 | 12 | stats dashboard | ✅ |
 | 13 | design system + tema romantico | ✅ |
 | 14 | `feat: login admin` | ✅ |
-| 15-27 | ... | ⬜ |
+| 15 | `feat: dashboard admin` | ✅ |
+| 16-27 | ... | ⬜ |
 
 ## Design System (Frontend)
 

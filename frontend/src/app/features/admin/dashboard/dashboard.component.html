@@ -1,0 +1,58 @@
+<div class="dashboard">
+  <h1 class="dashboard__title">Dashboard</h1>
+  <p class="dashboard__subtitle">Visão geral do seu casamento</p>
+
+  @if (loading()) {
+    <div class="dashboard__loading">
+      Carregando...
+    </div>
+  }
+
+  @if (error()) {
+    <div class="dashboard__error">
+      Erro ao carregar estatísticas. Tente novamente.
+    </div>
+  }
+
+  @if (stats(); as data) {
+    <div class="cards">
+      <div class="card">
+        <span class="card__icon">👥</span>
+        <span class="card__value">{{ data.totalGuests }}</span>
+        <span class="card__label">Convidados</span>
+      </div>
+
+      <div class="card card--accent">
+        <span class="card__icon">✅</span>
+        <span class="card__value">{{ data.confirmedGuests }}</span>
+        <span class="card__label">Confirmados</span>
+      </div>
+
+      <div class="card">
+        <span class="card__icon">🎁</span>
+        <span class="card__value">{{ data.totalGifts }}</span>
+        <span class="card__label">Presentes</span>
+      </div>
+
+      <div class="card card--accent">
+        <span class="card__icon">🎁</span>
+        <span class="card__value">{{ data.giftedGifts }}</span>
+        <span class="card__label">Já presenteados</span>
+      </div>
+
+      <div class="card card--accent card--gold">
+        <span class="card__icon">💰</span>
+        <span class="card__value">
+          {{ data.totalGiftedValue | currency:'BRL':'symbol':'1.0-0' }}
+        </span>
+        <span class="card__label">Valor total dado</span>
+      </div>
+
+      <div class="card">
+        <span class="card__icon">📸</span>
+        <span class="card__value">{{ data.totalPhotos }}</span>
+        <span class="card__label">Fotos na galeria</span>
+      </div>
+    </div>
+  }
+</div>
