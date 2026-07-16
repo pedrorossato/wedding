@@ -1,0 +1,57 @@
+@use 'variables' as *;
+
+// ─── Responsive Breakpoints ─────────────────────
+@mixin sm { @media (min-width: $bp-sm) { @content; } }
+@mixin md { @media (min-width: $bp-md) { @content; } }
+@mixin lg { @media (min-width: $bp-lg) { @content; } }
+@mixin xl { @media (min-width: $bp-xl) { @content; } }
+
+// ─── Container ──────────────────────────────────
+@mixin container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-lg;
+
+  @include md {
+    padding: 0 $space-2xl;
+  }
+}
+
+// ─── Section Padding ────────────────────────────
+@mixin section-padding {
+  padding: $space-3xl 0;
+
+  @include md {
+    padding: $space-4xl 0;
+  }
+}
+
+// ─── Fade-in Animation ──────────────────────────
+@mixin fade-in($duration: 600ms, $delay: 0ms) {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity $duration ease, transform $duration ease;
+  transition-delay: $delay;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Divider line (decorative) ──────────────────
+@mixin decorative-line {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background-color: $color-accent;
+  border-radius: 1px;
+}
+
+// ─── Focus ring ─────────────────────────────────
+@mixin focus-ring {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}

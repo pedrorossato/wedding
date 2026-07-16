@@ -112,7 +112,24 @@ Copiar `.env.example` para `.env`. Principais:
 | 9 | CRUD presentes + gift_purchases | ✅ |
 | 10 | CRUD galeria | ✅ |
 | 11 | integração Stripe | ✅ |
-| 5-27 | ... | ⬜ |
+| 12 | stats dashboard | ✅ |
+| 13 | design system + tema romantico | ✅ |
+| 14-27 | ... | ⬜ |
+
+## Design System (Frontend)
+
+- **Paleta:** Floral/verde minimalista elegante
+  - Primary: `#5b8c6f` (sage green), Dark: `#3d5c48`, Light: `#a8c5b0`
+  - Accent: `#c4a97d` (gold/champagne)
+  - Background: `#faf8f5` (warm off-white), Surface: `#ffffff`
+  - Text: `#1a1a1a` / `#6b6b6b` / `#9a9a9a`
+  - Floral accent: `#d4a5a5` (dusty rose, decorativo sutil)
+- **Tipografia:** Playfair Display (serif, títulos) + Inter (sans-serif, corpo)
+- **Estilo:** Minimalista elegante, muito espaço branco, tipografia protagonista
+- **Animações:** Discretas (fade-in, transições suaves)
+- **Navegação:** Multi-page com header fixo translúcido
+- **SCSS:** Design tokens em `src/styles/_variables.scss`, mixins em `_mixins.scss`, typography em `_typography.scss`
+- **Componentes shared:** Button (4 variantes), Header (logo + nav)
 
 ## Atualizar AGENTS.md
 

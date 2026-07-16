@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "667a5636-84e6-4fd0-837f-3f3bb2459e42"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -34,6 +35,9 @@
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            },
             "security": {
               "allowedHosts": []
             },

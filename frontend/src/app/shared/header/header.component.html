@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="header-inner">
+    <a routerLink="/" class="logo">
+      <span class="logo-text">Giovana &amp; Pedro</span>
+    </a>
+
+    <nav class="nav">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="nav-link"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </div>
+</header>

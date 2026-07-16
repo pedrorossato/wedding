@@ -1,1 +1,68 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'variables' as *;
+@use 'typography';
+@use 'mixins' as *;
+
+// ─── Reset ──────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-sans;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: $color-text-secondary;
+  background-color: $color-bg;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-primary-dark;
+  }
+}
+
+// ─── Selection ──────────────────────────────────
+::selection {
+  background-color: rgba($color-primary, 0.15);
+  color: $color-primary-dark;
+}
+
+// ─── Scrollbar ──────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: $color-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+  border-radius: 3px;
+
+  &:hover {
+    background: $color-text-muted;
+  }
+}

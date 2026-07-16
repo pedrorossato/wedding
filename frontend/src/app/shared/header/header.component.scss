@@ -1,0 +1,69 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'typography' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-header;
+  background-color: rgba($color-bg, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $color-border;
+}
+
+.header-inner {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.logo-text {
+  font-family: $font-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: $color-text;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-xl;
+}
+
+.nav-link {
+  @include body-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  position: relative;
+  padding: $space-xs 0;
+  transition: color $transition-fast;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: $color-primary;
+    transition: width $transition-base;
+  }
+
+  &:hover,
+  &.active {
+    color: $color-text;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
