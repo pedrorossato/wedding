@@ -109,6 +109,7 @@ Copiar `.env.example` para `.env`. Principais:
 | 6 | CRUD evento | ✅ |
 | 7 | CRUD convidados | ✅ |
 | 8 | confirmação de presença | ✅ |
+| 9 | CRUD presentes + gift_purchases | ✅ |
 | 5-27 | ... | ⬜ |
 
 ## Atualizar AGENTS.md
