@@ -1,6 +1,6 @@
 CREATE TABLE gifts
 (
-    id          SERIAL PRIMARY KEY,
+    id          BIGSERIAL PRIMARY KEY,
     name        VARCHAR(255)   NOT NULL,
     description TEXT,
     value       DECIMAL(10, 2) NOT NULL,

@@ -19,10 +19,14 @@ public class S3Config {
 
     @Bean
     public S3Client s3Client() {
-        return S3Client.builder()
-            .region(Region.of(aws.getRegion()))
-            .credentialsProvider(StaticCredentialsProvider.create(
-                AwsBasicCredentials.create(aws.getAccessKey(), aws.getSecretKey())))
-            .build();
+        var builder = S3Client.builder()
+            .region(Region.of(aws.getRegion()));
+
+        if (aws.getAccessKey() != null && !aws.getAccessKey().isBlank()) {
+            builder.credentialsProvider(StaticCredentialsProvider.create(
+                AwsBasicCredentials.create(aws.getAccessKey(), aws.getSecretKey())));
+        }
+
+        return builder.build();
     }
 }

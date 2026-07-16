@@ -1,6 +1,6 @@
 CREATE TABLE guests
 (
-    id           SERIAL PRIMARY KEY,
+    id           BIGSERIAL PRIMARY KEY,
     name         VARCHAR(255) NOT NULL,
     uuid         UUID         NOT NULL UNIQUE,
     confirmed    BOOLEAN,

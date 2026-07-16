@@ -1,6 +1,6 @@
 CREATE TABLE gift_purchases
 (
-    id                SERIAL PRIMARY KEY,
+    id                BIGSERIAL PRIMARY KEY,
     gift_id           BIGINT       NOT NULL REFERENCES gifts (id),
     guest_id          BIGINT       NOT NULL REFERENCES guests (id),
     paid              BOOLEAN      NOT NULL DEFAULT FALSE,

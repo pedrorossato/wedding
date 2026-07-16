@@ -7,6 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Date;
 
 @Service
@@ -16,7 +18,8 @@ public class JwtService {
     private final long expiration;
 
     public JwtService(WeddingProperties properties) {
-        this.secretKey = Keys.hmacShaKeyFor(properties.getJwt().getSecret().getBytes());
+        byte[] keyBytes = sha256(properties.getJwt().getSecret().getBytes(StandardCharsets.UTF_8));
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
         this.expiration = properties.getJwt().getExpiration();
     }
 
@@ -37,5 +40,13 @@ public class JwtService {
             .parseSignedClaims(token)
             .getPayload();
         return claims.getSubject();
+    }
+
+    private byte[] sha256(byte[] input) {
+        try {
+            return MessageDigest.getInstance("SHA-256").digest(input);
+        } catch (Exception e) {
+            throw new RuntimeException("SHA-256 not available", e);
+        }
     }
 }

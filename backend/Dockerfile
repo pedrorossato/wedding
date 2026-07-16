@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
 COPY mvnw pom.xml ./
 COPY .mvn .mvn
-RUN chmod +x mvnw && ./mvnw dependency:resolve -B -q
+RUN dos2unix mvnw 2>/dev/null; sed -i 's/\r$//' mvnw; chmod +x mvnw && ./mvnw dependency:resolve -B -q
 COPY src src
 RUN ./mvnw package -DskipTests -B -q
 
