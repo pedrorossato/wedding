@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class GiftController {
 
     private final GiftService service;
@@ -27,22 +29,22 @@ public class GiftController {
         this.service = service;
     }
 
-    @GetMapping("/api/gifts")
+    @GetMapping("/gifts")
     public ResponseEntity<List<GiftResponse>> listPublic() {
         return ResponseEntity.ok(service.listAll());
     }
 
-    @GetMapping("/api/admin/gifts")
+    @GetMapping("/admin/gifts")
     public ResponseEntity<List<GiftResponse>> listAll() {
         return ResponseEntity.ok(service.listAll());
     }
 
-    @GetMapping("/api/admin/gifts/{id}")
+    @GetMapping("/admin/gifts/{id}")
     public ResponseEntity<GiftResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @PostMapping(value = "/api/admin/gifts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/admin/gifts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<GiftResponse> create(
             @RequestParam @NotBlank String name,
             @RequestParam(required = false) String description,
@@ -52,7 +54,7 @@ public class GiftController {
             .body(service.create(name, description, value, image));
     }
 
-    @PutMapping(value = "/api/admin/gifts/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/admin/gifts/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<GiftResponse> update(
             @PathVariable Long id,
             @RequestParam @NotBlank String name,
@@ -62,7 +64,7 @@ public class GiftController {
         return ResponseEntity.ok(service.update(id, name, description, value, image));
     }
 
-    @DeleteMapping("/api/admin/gifts/{id}")
+    @DeleteMapping("/admin/gifts/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

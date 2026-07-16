@@ -8,10 +8,10 @@ import java.time.Instant;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/health")
+@RequestMapping("/api")
 public class HealthController {
 
-    @GetMapping
+    @GetMapping("/health")
     public Map<String, Object> health() {
         return Map.of(
             "status", "UP",

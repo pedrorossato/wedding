@@ -13,12 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RestController
+@RequestMapping("/api/webhooks")
 public class WebhookController {
 
     private static final Logger log = LoggerFactory.getLogger(WebhookController.class);
@@ -32,7 +34,7 @@ public class WebhookController {
         this.purchaseRepository = purchaseRepository;
     }
 
-    @PostMapping("/api/webhooks/stripe")
+    @PostMapping("/stripe")
     public ResponseEntity<String> handleWebhook(
             @RequestBody String payload,
             @RequestHeader("Stripe-Signature") String sigHeader) {

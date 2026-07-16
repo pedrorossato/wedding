@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api")
 public class GuestController {
 
     private final GuestService guestService;
@@ -28,33 +30,33 @@ public class GuestController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/api/admin/guests")
+    @GetMapping("/admin/guests")
     public ResponseEntity<List<GuestResponse>> listAll() {
         return ResponseEntity.ok(guestService.listAll());
     }
 
-    @GetMapping("/api/admin/guests/{id}")
+    @GetMapping("/admin/guests/{id}")
     public ResponseEntity<GuestResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(guestService.getById(id));
     }
 
-    @PostMapping("/api/admin/guests")
+    @PostMapping("/admin/guests")
     public ResponseEntity<GuestResponse> create(@Valid @RequestBody GuestCreateRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(guestService.create(request));
     }
 
-    @PutMapping("/api/admin/guests/{id}")
+    @PutMapping("/admin/guests/{id}")
     public ResponseEntity<GuestResponse> update(@PathVariable Long id, @Valid @RequestBody GuestUpdateRequest request) {
         return ResponseEntity.ok(guestService.update(id, request));
     }
 
-    @DeleteMapping("/api/admin/guests/{id}")
+    @DeleteMapping("/admin/guests/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         guestService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/invite/{uuid}")
+    @GetMapping("/invite/{uuid}")
     public ResponseEntity<InviteResponse> getInvite(@PathVariable UUID uuid) {
         Guest guest = guestService.findByUuid(uuid);
 
@@ -74,7 +76,7 @@ public class GuestController {
         ));
     }
 
-    @PostMapping("/api/invite/{uuid}/confirm")
+    @PostMapping("/invite/{uuid}/confirm")
     public ResponseEntity<InviteResponse> confirm(@PathVariable UUID uuid,
                                                    @Valid @RequestBody ConfirmRequest request) {
         return ResponseEntity.ok(guestService.confirm(uuid, request));
