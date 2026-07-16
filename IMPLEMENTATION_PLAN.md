@@ -113,6 +113,7 @@ wedding/
 | GET | `/api/invite/{uuid}` | Dados do convidado |
 | POST | `/api/invite/{uuid}/confirm` | Confirmar/recusar presença |
 | GET | `/api/gifts` | Lista de presentes disponíveis |
+| GET | `/api/gallery` | Fotos da galeria (ordenadas) |
 
 ### Admin (JWT)
 | Método | Rota | Descrição |

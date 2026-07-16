@@ -29,6 +29,7 @@ public class SecurityConfig {
                     "/api/health",
                     "/api/event",
                     "/api/invite/**",
+                    "/api/gallery",
                     "/api/gifts",
                     "/api/payments/**",
                     "/api/webhooks/**",
