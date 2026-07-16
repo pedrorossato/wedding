@@ -1,6 +1,7 @@
 package com.pedrogio.wedding.gift;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +15,10 @@ public interface GiftPurchaseRepository extends JpaRepository<GiftPurchase, Long
     Optional<GiftPurchase> findByPaymentIntentId(String paymentIntentId);
 
     long countByGiftIdAndPaidTrue(Long giftId);
+
+    @Query("SELECT COALESCE(SUM(g.price), 0) FROM GiftPurchase gp JOIN gp.gift g WHERE gp.paid = true")
+    Long sumPaidAmounts();
+
+    @Query("SELECT COUNT(DISTINCT gp.gift.id) FROM GiftPurchase gp WHERE gp.paid = true")
+    long countGiftsWithPaidPurchases();
 }
