@@ -1,0 +1,41 @@
+<div class="login-page">
+  <div class="login-card">
+    <h2 class="login-title">Área Administrativa</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="field">
+        <label class="label" for="username">Usuário</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="input"
+          placeholder="admin"
+        />
+      </div>
+
+      <div class="field">
+        <label class="label" for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="input"
+          placeholder="••••••••"
+        />
+      </div>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      <button app-button type="submit" variant="primary" class="btn-full" [disabled]="form.invalid || loading()">
+        @if (loading()) {
+          Entrando…
+        } @else {
+          Entrar
+        }
+      </button>
+    </form>
+  </div>
+</div>

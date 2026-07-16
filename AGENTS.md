@@ -114,7 +114,8 @@ Copiar `.env.example` para `.env`. Principais:
 | 11 | integração Stripe | ✅ |
 | 12 | stats dashboard | ✅ |
 | 13 | design system + tema romantico | ✅ |
-| 14-27 | ... | ⬜ |
+| 14 | `feat: login admin` | ✅ |
+| 15-27 | ... | ⬜ |
 
 ## Design System (Frontend)
 
@@ -130,6 +131,7 @@ Copiar `.env.example` para `.env`. Principais:
 - **Navegação:** Multi-page com header fixo translúcido
 - **SCSS:** Design tokens em `src/styles/_variables.scss`, mixins em `_mixins.scss`, typography em `_typography.scss`
 - **Componentes shared:** Button (4 variantes), Header (logo + nav)
+- **Core:** EncryptionService (Web Crypto AES-256-GCM), AuthService (JWT + localStorage), AuthGuard, jwtInterceptor
 
 ## Atualizar AGENTS.md
 

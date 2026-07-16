@@ -1,0 +1,71 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'typography' as *;
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px);
+  padding: $space-lg;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  padding: $space-2xl;
+  border: 1px solid $color-border;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: $space-xl;
+  font-size: 1.35rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.label {
+  @include label;
+  color: $color-text-secondary;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: $font-sans;
+  font-size: 1rem;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-bg;
+  color: $color-text;
+  transition: border-color $transition-fast;
+  outline: none;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+.error {
+  @include body-sm;
+  color: #c0392b;
+  text-align: center;
+  margin: 0;
+}
