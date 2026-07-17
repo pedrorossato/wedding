@@ -24,4 +24,9 @@ public interface GiftPurchaseRepository extends JpaRepository<GiftPurchase, Long
     long countGiftsWithPaidPurchases();
 
     boolean existsByGuestId(Long guestId);
+
+    boolean existsByGiftId(Long giftId);
+
+    @Query("SELECT gp FROM GiftPurchase gp JOIN FETCH gp.guest WHERE gp.gift.id = :giftId")
+    List<GiftPurchase> findByGiftIdWithGuest(@org.springframework.data.repository.query.Param("giftId") Long giftId);
 }

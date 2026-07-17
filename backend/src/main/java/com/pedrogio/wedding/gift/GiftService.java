@@ -14,10 +14,14 @@ import java.util.List;
 public class GiftService {
 
     private final GiftRepository repository;
+    private final GiftPurchaseRepository giftPurchaseRepository;
     private final S3StorageService s3;
 
-    public GiftService(GiftRepository repository, S3StorageService s3) {
+    public GiftService(GiftRepository repository,
+                       GiftPurchaseRepository giftPurchaseRepository,
+                       S3StorageService s3) {
         this.repository = repository;
+        this.giftPurchaseRepository = giftPurchaseRepository;
         this.s3 = s3;
     }
 
@@ -68,16 +72,33 @@ public class GiftService {
     }
 
     public void delete(Long id) {
-        Gift gift = repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Presente nao encontrado"));
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Presente nao encontrado");
+        }
 
-        if (!gift.getPurchases().isEmpty()) {
+        if (giftPurchaseRepository.existsByGiftId(id)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 "Nao e possivel remover presente com compras vinculadas");
         }
 
+        Gift gift = repository.findById(id).orElseThrow();
         s3.delete(gift.getS3Key());
         repository.delete(gift);
+    }
+
+    public List<GiftPurchaseInfo> listPurchases(Long giftId) {
+        if (!repository.existsById(giftId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Presente nao encontrado");
+        }
+
+        return giftPurchaseRepository.findByGiftIdWithGuest(giftId).stream()
+            .map(gp -> new GiftPurchaseInfo(
+                gp.getId(),
+                gp.getGuest().getName(),
+                gp.getPaid(),
+                gp.getPaymentIntentId()
+            ))
+            .toList();
     }
 
     private GiftResponse toResponse(Gift gift) {
