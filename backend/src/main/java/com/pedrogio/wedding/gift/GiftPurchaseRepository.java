@@ -22,4 +22,6 @@ public interface GiftPurchaseRepository extends JpaRepository<GiftPurchase, Long
 
     @Query("SELECT COUNT(DISTINCT gp.gift.id) FROM GiftPurchase gp WHERE gp.paid = true")
     long countGiftsWithPaidPurchases();
+
+    boolean existsByGuestId(Long guestId);
 }

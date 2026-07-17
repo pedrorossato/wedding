@@ -2,6 +2,7 @@ package com.pedrogio.wedding.guest;
 
 import com.pedrogio.wedding.event.EventConfig;
 import com.pedrogio.wedding.event.EventConfigRepository;
+import com.pedrogio.wedding.gift.GiftPurchaseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,10 +16,14 @@ public class GuestService {
 
     private final GuestRepository repository;
     private final EventConfigRepository eventConfigRepository;
+    private final GiftPurchaseRepository giftPurchaseRepository;
 
-    public GuestService(GuestRepository repository, EventConfigRepository eventConfigRepository) {
+    public GuestService(GuestRepository repository,
+                        EventConfigRepository eventConfigRepository,
+                        GiftPurchaseRepository giftPurchaseRepository) {
         this.repository = repository;
         this.eventConfigRepository = eventConfigRepository;
+        this.giftPurchaseRepository = giftPurchaseRepository;
     }
 
     public List<GuestResponse> listAll() {
@@ -54,7 +59,7 @@ public class GuestService {
         Guest guest = repository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Convidado nao encontrado"));
 
-        if (!guest.getGiftPurchases().isEmpty()) {
+        if (giftPurchaseRepository.existsByGuestId(id)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 "Nao e possivel remover convidado com compras de presentes vinculadas");
         }
