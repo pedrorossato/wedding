@@ -5,6 +5,7 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
 import { EventAdminComponent } from './features/admin/event/event.component';
 import { GuestAdminComponent } from './features/admin/guests/guest.component';
 import { GiftAdminComponent } from './features/admin/gifts-admin/gift.component';
+import { GalleryAdminComponent } from './features/admin/gallery/gallery.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
       { path: 'event', component: EventAdminComponent },
       { path: 'guests', component: GuestAdminComponent },
       { path: 'gifts', component: GiftAdminComponent },
+      { path: 'gallery', component: GalleryAdminComponent },
     ],
   },
 ];
