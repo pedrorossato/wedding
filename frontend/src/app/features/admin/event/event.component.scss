@@ -1,0 +1,97 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'typography' as *;
+
+.event {
+  @include container;
+  @include section-padding;
+  max-width: 640px;
+}
+
+.event__title {
+  @include h1;
+  margin: 0 0 $space-sm;
+}
+
+.event__subtitle {
+  @include body-lg;
+  color: $color-text-secondary;
+  margin: 0 0 $space-xl;
+}
+
+.event__state {
+  @include body;
+  padding: $space-md $space-lg;
+  border-radius: $radius-md;
+  margin-bottom: $space-lg;
+  background: rgba($color-primary, 0.08);
+  color: $color-primary-dark;
+
+  &--error {
+    background: rgba($color-floral, 0.15);
+    color: #b05a5a;
+  }
+
+  &--success {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary-dark;
+  }
+}
+
+.event__form {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.event__field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.event__label {
+  @include body-sm;
+  color: $color-text-secondary;
+  font-weight: 500;
+}
+
+.event__input {
+  @include body;
+  padding: $space-md;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-bg;
+  color: $color-text;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
+  }
+
+  &--invalid {
+    border-color: #b05a5a;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($color-floral, 0.15);
+    }
+  }
+}
+
+.event__error-msg {
+  @include body-sm;
+  color: #b05a5a;
+}
+
+.event__actions {
+  padding-top: $space-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}

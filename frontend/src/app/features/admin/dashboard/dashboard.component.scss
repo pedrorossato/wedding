@@ -18,6 +18,28 @@
   margin: 0 0 $space-xl;
 }
 
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+  margin-bottom: $space-xl;
+}
+
+.admin-nav__link {
+  @include body-sm;
+  padding: $space-sm $space-md;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text-secondary;
+  text-decoration: none;
+  transition: border-color $transition-fast, color $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary-dark;
+  }
+}
+
 .dashboard__loading,
 .dashboard__error {
   text-align: center;

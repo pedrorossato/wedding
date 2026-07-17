@@ -1,0 +1,57 @@
+<div class="event">
+  <h1 class="event__title">Configuração do Evento</h1>
+  <p class="event__subtitle">Defina a data do casamento e o prazo para confirmação de presença</p>
+
+  @if (loading()) {
+    <div class="event__state">Carregando...</div>
+  }
+
+  @if (error()) {
+    <div class="event__state event__state--error">{{ error() }}</div>
+  }
+
+  @if (success()) {
+    <div class="event__state event__state--success">Datas atualizadas com sucesso!</div>
+  }
+
+  @if (!loading()) {
+    <form class="event__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="event__field">
+        <label class="event__label" for="weddingDate">Data do Casamento</label>
+        <input
+          class="event__input"
+          id="weddingDate"
+          type="datetime-local"
+          formControlName="weddingDate"
+          [class.event__input--invalid]="weddingDateInvalid"
+        />
+        @if (weddingDateInvalid) {
+          <span class="event__error-msg">Campo inválido</span>
+        }
+      </div>
+
+      <div class="event__field">
+        <label class="event__label" for="rsvpDeadline">Prazo para Confirmação (RSVP)</label>
+        <input
+          class="event__input"
+          id="rsvpDeadline"
+          type="datetime-local"
+          formControlName="rsvpDeadline"
+          [class.event__input--invalid]="rsvpDeadlineInvalid"
+        />
+        @if (rsvpDeadlineInvalid) {
+          <span class="event__error-msg">Campo inválido</span>
+        }
+      </div>
+
+      <div class="event__actions">
+        <button app-button type="submit" [disabled]="saving() || form.invalid">
+          {{ saving() ? 'Salvando...' : 'Salvar' }}
+        </button>
+        @if (formSubmitted && form.invalid) {
+          <span class="event__error-msg">Preencha todos os campos de maneira válida</span>
+        }
+      </div>
+    </form>
+  }
+</div>

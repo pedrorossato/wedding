@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
 import { LoginComponent } from './features/admin/auth/login.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
+import { EventAdminComponent } from './features/admin/event/event.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'event', component: EventAdminComponent },
     ],
   },
 ];

@@ -15,6 +15,13 @@
   }
 
   @if (stats(); as data) {
+    <nav class="admin-nav">
+      <a class="admin-nav__link" routerLink="/admin/event">Evento</a>
+      <a class="admin-nav__link" routerLink="/admin/guests">Convidados</a>
+      <a class="admin-nav__link" routerLink="/admin/gifts">Presentes</a>
+      <a class="admin-nav__link" routerLink="/admin/gallery">Galeria</a>
+    </nav>
+
     <div class="cards">
       <div class="card">
         <span class="card__icon">👥</span>
