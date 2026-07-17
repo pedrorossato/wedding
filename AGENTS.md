@@ -125,7 +125,8 @@ Copiar `.env.example` para `.env`. Principais:
 | 14 | `feat: login admin` | ✅ |
 | 15 | `feat: dashboard admin` | ✅ |
 | 16 | `feat: admin — evento` | ✅ |
-| 17-27 | ... | ⬜ |
+| 17 | `feat: admin — convidados` | ✅ |
+| 18-27 | ... | ⬜ |
 
 ## Design System (Frontend)
 
@@ -141,7 +142,7 @@ Copiar `.env.example` para `.env`. Principais:
 - **Navegação:** Multi-page com header fixo translúcido
 - **SCSS:** Design tokens em `src/styles/_variables.scss`, mixins em `_mixins.scss`, typography em `_typography.scss`
 - **Componentes shared:** Button (4 variantes), Header (logo + nav)
-- **Core:** EncryptionService (Web Crypto AES-256-GCM), AuthService (JWT + localStorage), AuthGuard, jwtInterceptor, EventService (GET/PUT event)
+- **Core:** EncryptionService (Web Crypto AES-256-GCM), AuthService (JWT + localStorage), AuthGuard, jwtInterceptor, EventService (GET/PUT event), GuestService (CRUD guests)
 - **SSR:** rotas `/admin/**` com `RenderMode.Client` (auth guard nao roda no servidor, onde localStorage nao existe)
 
 ## Atualizar AGENTS.md

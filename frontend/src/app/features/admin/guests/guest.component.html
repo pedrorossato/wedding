@@ -1,0 +1,106 @@
+<div class="guests">
+  <h1 class="guests__title">Convidados</h1>
+  <p class="guests__subtitle">Gerencie a lista de convidados e os links de convite</p>
+
+  @if (error()) {
+    <div class="guests__toast guests__toast--error">{{ error() }}</div>
+  }
+
+  <div class="guests__create">
+    <form class="guests__create-form" [formGroup]="createForm" (ngSubmit)="onCreate()">
+      <input
+        class="guests__input"
+        type="text"
+        formControlName="name"
+        placeholder="Nome do convidado"
+      />
+      <button app-button type="submit" variant="accent" [disabled]="createForm.invalid">
+        Adicionar
+      </button>
+    </form>
+  </div>
+
+  @if (loading()) {
+    <div class="guests__state">Carregando...</div>
+  }
+
+  @if (!loading() && guests().length === 0) {
+    <div class="guests__state">Nenhum convidado cadastrado</div>
+  }
+
+  @if (guests().length > 0) {
+    <div class="guests__table-wrapper">
+      <table class="guests__table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Link</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (guest of guests(); track guest.id) {
+            <tr>
+              <td>
+                @if (editingId() === guest.id) {
+                  <input
+                    class="guests__input guests__input--inline"
+                    type="text"
+                    [formControl]="editForm.controls.name"
+                  />
+                } @else {
+                  <span class="guests__name">{{ guest.name }}</span>
+                }
+              </td>
+              <td>
+                <span class="guest-status" [class]="statusClass(guest.confirmed)">
+                  {{ statusLabel(guest.confirmed) }}
+                </span>
+              </td>
+              <td>
+                <div class="guests__uuid-cell">
+                  @if (editingId() !== guest.id) {
+                    <code class="guests__uuid">{{ guest.uuid }}</code>
+                    <button
+                      class="guests__copy-btn"
+                      title="Copiar link"
+                      (click)="copyUuid(guest.uuid, guest.name)"
+                    >
+                      📋
+                    </button>
+                  }
+                </div>
+              </td>
+              <td class="guests__actions">
+                @if (editingId() === guest.id) {
+                  <button app-button variant="primary" size="sm" (click)="saveEdit(guest.id)">
+                    Salvar
+                  </button>
+                  <button app-button variant="ghost" size="sm" (click)="cancelEdit()">
+                    Cancelar
+                  </button>
+                } @else if (deletingId() === guest.id) {
+                  <span class="guests__confirm-delete">Remover?</span>
+                  <button app-button variant="primary" size="sm" (click)="confirmDelete(guest.id)">
+                    Sim
+                  </button>
+                  <button app-button variant="ghost" size="sm" (click)="cancelDelete()">
+                    Não
+                  </button>
+                } @else {
+                  <button app-button variant="ghost" size="sm" (click)="startEdit(guest)">
+                    Editar
+                  </button>
+                  <button app-button variant="ghost" size="sm" (click)="startDelete(guest.id)">
+                    Remover
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

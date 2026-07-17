@@ -1,0 +1,196 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'typography' as *;
+
+.guests {
+  @include container;
+  @include section-padding;
+  max-width: 960px;
+}
+
+.guests__title {
+  @include h1;
+  margin: 0 0 $space-sm;
+}
+
+.guests__subtitle {
+  @include body-lg;
+  color: $color-text-secondary;
+  margin: 0 0 $space-xl;
+}
+
+.guests__toast {
+  @include body;
+  padding: $space-md $space-lg;
+  border-radius: $radius-md;
+  margin-bottom: $space-lg;
+
+  &--error {
+    background: rgba($color-floral, 0.15);
+    color: #b05a5a;
+  }
+}
+
+.guests__state {
+  @include body;
+  text-align: center;
+  padding: $space-2xl;
+  color: $color-text-secondary;
+}
+
+// ─── Create form ───────────────────────────
+.guests__create {
+  margin-bottom: $space-lg;
+}
+
+.guests__create-form {
+  display: flex;
+  gap: $space-md;
+  align-items: flex-end;
+
+  .guests__input {
+    flex: 1;
+    max-width: 400px;
+  }
+
+  @include sm {
+    gap: $space-md;
+  }
+}
+
+// ─── Input ─────────────────────────────────
+.guests__input {
+  @include body;
+  padding: $space-md;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface;
+  color: $color-text;
+  transition: border-color $transition-fast;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
+  }
+
+  &--inline {
+    max-width: 260px;
+  }
+}
+
+// ─── Table ─────────────────────────────────
+.guests__table-wrapper {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.guests__table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    @include body-sm;
+    font-weight: 600;
+    color: $color-text-secondary;
+    text-align: left;
+    padding: $space-md $space-lg;
+    border-bottom: 1px solid $color-border;
+    background: rgba($color-bg, 0.6);
+  }
+
+  td {
+    @include body;
+    padding: $space-md $space-lg;
+    border-bottom: 1px solid rgba($color-border, 0.6);
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.guests__name {
+  font-weight: 500;
+}
+
+// ─── UUID cell ─────────────────────────────
+.guests__uuid-cell {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.guests__uuid {
+  @include body-sm;
+  background: $color-bg;
+  padding: 2px $space-sm;
+  border-radius: $radius-sm;
+  color: $color-text-secondary;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.guests__copy-btn {
+  background: none;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  padding: 2px $space-sm;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: border-color $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+  }
+}
+
+// ─── Actions ───────────────────────────────
+.guests__actions {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.guests__confirm-delete {
+  @include body-sm;
+  color: #b05a5a;
+  font-weight: 500;
+}
+
+// ─── Status badges ─────────────────────────
+.guest-status {
+  @include body-sm;
+  padding: 2px $space-sm;
+  border-radius: $radius-sm;
+  font-weight: 500;
+
+  &--confirmed {
+    background: rgba($color-primary, 0.12);
+    color: $color-primary-dark;
+  }
+
+  &--pending {
+    background: rgba($color-accent, 0.15);
+    color: #9e845a;
+  }
+
+  &--declined {
+    background: rgba($color-floral, 0.12);
+    color: #b05a5a;
+  }
+}
+
+// ─── Responsive ────────────────────────────
+@include sm {
+  .guests__create-form {
+    flex-direction: row;
+  }
+}
