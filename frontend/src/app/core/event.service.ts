@@ -13,6 +13,10 @@ export class EventService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/api/admin/event`;
 
+  getPublicConfig() {
+    return this.http.get<EventConfig>(`${environment.apiUrl}/api/event`);
+  }
+
   getConfig() {
     return this.http.get<EventConfig>(this.baseUrl);
   }

@@ -18,6 +18,10 @@ export class GalleryService {
     return this.http.get<GalleryPhotoResponse[]>(this.baseUrl);
   }
 
+  listPublic() {
+    return this.http.get<GalleryPhotoResponse[]>(`${environment.apiUrl}/api/gallery`);
+  }
+
   upload(files: File[]) {
     const fd = new FormData();
     for (const file of files) {

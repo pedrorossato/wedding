@@ -128,7 +128,8 @@ Copiar `.env.example` para `.env`. Principais:
 | 17 | `feat: admin — convidados` | ✅ |
 | 18 | `feat: admin — presentes` | ✅ |
 | 19 | `feat: admin — galeria` | ✅ |
-| 20-27 | ... | ⬜ |
+| 20 | `feat: página inicial pública` | ✅ |
+| 21-27 | ... | ⬜ |
 
 ## Design System (Frontend)
 
@@ -138,14 +139,15 @@ Copiar `.env.example` para `.env`. Principais:
   - Background: `#faf8f5` (warm off-white), Surface: `#ffffff`
   - Text: `#1a1a1a` / `#6b6b6b` / `#9a9a9a`
   - Floral accent: `#d4a5a5` (dusty rose, decorativo sutil)
+- **Build budgets:** `anyComponentStyle` warning 16kB, error 20kB (aumentado p/ home com design botânico SVG inline).
 - **Tipografia:** Playfair Display (serif, títulos) + Inter (sans-serif, corpo)
 - **Estilo:** Minimalista elegante, muito espaço branco, tipografia protagonista
 - **Animações:** Discretas (fade-in, transições suaves)
 - **Navegação:** Multi-page com header fixo translúcido
 - **SCSS:** Design tokens em `src/styles/_variables.scss`, mixins em `_mixins.scss`, typography em `_typography.scss`
 - **Componentes shared:** Button (4 variantes), Header (logo + nav)
-- **Core:** EncryptionService (Web Crypto AES-256-GCM), AuthService (JWT + localStorage), AuthGuard, jwtInterceptor, EventService (GET/PUT event), GuestService (CRUD guests), GiftService (CRUD gifts + upload imagem), GalleryService (CRUD galeria + upload + reorder)
-- **SSR:** rotas `/admin/**` com `RenderMode.Client` (auth guard nao roda no servidor, onde localStorage nao existe)
+- **Core:** EncryptionService (Web Crypto AES-256-GCM), AuthService (JWT + localStorage), AuthGuard, jwtInterceptor, EventService (GET pública `/api/event` + admin CRUD), GuestService (CRUD guests), GiftService (CRUD gifts + upload imagem), GalleryService (GET pública `/api/gallery` + admin CRUD/upload/reorder)
+- **SSR:** rotas `/admin/**` com `RenderMode.Client` (auth guard nao roda no servidor, onde localStorage nao existe). Home `/` é SSR (prerendered). Animações fade-in via IntersectionObserver habilitadas só no browser pela classe `home--ready` (evita conteúdo invisível no SSR).
 
 ## Atualizar AGENTS.md
 

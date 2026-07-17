@@ -1,0 +1,155 @@
+<div class="home">
+  <!-- ─── Hero ─── -->
+  <section class="hero reveal" #reveal>
+    <div class="hero__inner">
+      <p class="hero__caption">Vamos celebrar o amor</p>
+      <h1 class="hero__names">Giovana <span class="hero__amp">&amp;</span> Pedro</h1>
+      <div class="hero__divider">
+        <span class="hero__divider-line"></span>
+        <span class="hero__divider-dot"></span>
+        <span class="hero__divider-line"></span>
+      </div>
+      @if (event()) {
+        <p class="hero__date">
+          {{ formatWeddingWeekday() }}, {{ formatWeddingDate() }} &middot; {{ formatWeddingTime() }}
+        </p>
+      } @else if (!error()) {
+        <p class="hero__date">&nbsp;</p>
+      }
+      <p class="hero__tagline">La Sierra Eventos &middot; Itaara &middot; RS</p>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-label">role</span>
+      <span class="hero__scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- ─── Countdown ─── -->
+  @if (event()) {
+    <section class="countdown reveal" #reveal>
+      <div class="countdown__inner">
+        @if (isWedded) {
+          <p class="countdown__message">Estamos casados &mdash; obrigado por celebrar conosco!</p>
+        } @else {
+          <p class="countdown__heading">Faltam apenas</p>
+          <div class="countdown__grid">
+            <div class="countdown__item">
+              <span class="countdown__value">{{ countdown().days }}</span>
+              <span class="countdown__label">Dias</span>
+            </div>
+            <div class="countdown__item">
+              <span class="countdown__value">{{ countdown().hours }}</span>
+              <span class="countdown__label">Horas</span>
+            </div>
+            <div class="countdown__item">
+              <span class="countdown__value">{{ countdown().minutes }}</span>
+              <span class="countdown__label">Min</span>
+            </div>
+            <div class="countdown__item">
+              <span class="countdown__value">{{ countdown().seconds }}</span>
+              <span class="countdown__label">Seg</span>
+            </div>
+          </div>
+          @if (event()?.rsvpDeadline) {
+            <p class="countdown__deadline">
+              Confirme sua presença até {{ event()?.rsvpDeadline | date: 'dd/MM/yyyy' }}
+            </p>
+          }
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ─── Nossa História ─── -->
+  <section class="story reveal" #reveal>
+    <div class="story__inner">
+      <p class="section-tag">Nossa História</p>
+      <div class="section-divider"><span class="section-divider__line"></span><span class="section-divider__dot"></span><span class="section-divider__line"></span></div>
+      <p class="story__lead">
+        Foi num café movimentado, numa manhã comum de quarta-feira, que os olhares se cruzaram
+        pela primeira vez. Um tropeço, um sorriso, e a certeza silenciosa de que algo
+        extraordinário começava.
+      </p>
+      <div class="story__grid">
+        <article class="story__card">
+          <span class="story__card-no">01</span>
+          <h3 class="story__card-title">O Encontro</h3>
+          <p class="story__card-text">Um café, um sorriso, e o tempo parou. Começava a nossa história.</p>
+        </article>
+        <article class="story__card story__card--accent">
+          <span class="story__card-no">02</span>
+          <h3 class="story__card-title">O Sim</h3>
+          <p class="story__card-text">Sob o céu laranja da praia, uma pergunta e um sim selaram o para sempre.</p>
+        </article>
+        <article class="story__card">
+          <span class="story__card-no">03</span>
+          <h3 class="story__card-title">O Para Sempre</h3>
+          <p class="story__card-text">Agora queremos partilhar este dia com quem mais amamos: você.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Detalhes do Evento ── -->
+  @if (event()) {
+    <section class="details reveal" #reveal>
+      <div class="details__inner">
+        <p class="section-tag">O Grande Dia</p>
+        <div class="section-divider"><span class="section-divider__line"></span><span class="section-divider__dot"></span><span class="section-divider__line"></span></div>
+
+        <div class="details__grid">
+          <div class="details__card">
+            <span class="details__icon">&#128197;</span>
+            <span class="details__label">Data</span>
+            <span class="details__value">{{ formatWeddingDate() }}</span>
+            <span class="details__sub">{{ formatWeddingWeekday() }}</span>
+          </div>
+          <div class="details__card details__card--accent">
+            <span class="details__icon">&#9201;</span>
+            <span class="details__label">Horário</span>
+            <span class="details__value">{{ formatWeddingTime() }}</span>
+            <span class="details__sub">Cerimônia &amp; recepção</span>
+          </div>
+          <div class="details__card">
+            <span class="details__icon">&#128205;</span>
+            <span class="details__label">Local</span>
+            <span class="details__value">La Sierra Eventos</span>
+            <span class="details__sub">Itaara &middot; RS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- ─── Galeria ─── -->
+  <section class="gallery reveal" #reveal>
+    <div class="gallery__inner">
+      <p class="section-tag">Nossa Galeria</p>
+      <div class="section-divider"><span class="section-divider__line"></span><span class="section-divider__dot"></span><span class="section-divider__line"></span></div>
+
+      @if (photos().length > 0) {
+        <div class="gallery__grid">
+          @for (photo of photos(); track photo.id; let i = $index) {
+            <figure class="gallery__item" [class.gallery__item--large]="i % 5 === 0">
+              <img [src]="photo.imageUrl" [alt]="'Foto ' + (i + 1)" loading="lazy" />
+            </figure>
+          }
+        </div>
+      } @else if (loading()) {
+        <p class="gallery__empty">Carregando fotos...</p>
+      } @else {
+        <p class="gallery__empty">Em breve nossas fotos aqui.</p>
+      }
+    </div>
+  </section>
+
+  <!-- ─── Rodapé ─── -->
+  <footer class="footer reveal" #reveal>
+    <div class="footer__inner">
+      <p class="footer__mono">Giovana &amp; Pedro</p>
+      <span class="footer__heart">&hearts;</span>
+      <p class="footer__caption">2026 &middot; feito com amor</p>
+    </div>
+  </footer>
+</div>

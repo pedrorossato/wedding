@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
+import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/admin/auth/login.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 import { EventAdminComponent } from './features/admin/event/event.component';
@@ -8,6 +9,10 @@ import { GiftAdminComponent } from './features/admin/gifts-admin/gift.component'
 import { GalleryAdminComponent } from './features/admin/gallery/gallery.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+  },
   {
     path: 'admin/login',
     component: LoginComponent,
