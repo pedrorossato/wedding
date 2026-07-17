@@ -69,4 +69,9 @@ public class GiftController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/admin/gifts/{id}/purchases")
+    public ResponseEntity<List<GiftPurchaseInfo>> listPurchases(@PathVariable Long id) {
+        return ResponseEntity.ok(service.listPurchases(id));
+    }
 }

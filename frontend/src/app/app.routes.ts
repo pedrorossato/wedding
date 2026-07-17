@@ -4,6 +4,7 @@ import { LoginComponent } from './features/admin/auth/login.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 import { EventAdminComponent } from './features/admin/event/event.component';
 import { GuestAdminComponent } from './features/admin/guests/guest.component';
+import { GiftAdminComponent } from './features/admin/gifts-admin/gift.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'event', component: EventAdminComponent },
       { path: 'guests', component: GuestAdminComponent },
+      { path: 'gifts', component: GiftAdminComponent },
     ],
   },
 ];

@@ -1,0 +1,127 @@
+<div class="gifts">
+  <div class="gifts__header">
+    <div>
+      <h1 class="gifts__title">Presentes</h1>
+      <p class="gifts__subtitle">Gerencie a lista de presentes</p>
+    </div>
+    <button app-button variant="accent" (click)="openCreate()">Novo presente</button>
+  </div>
+
+  @if (error()) {
+    <div class="gifts__toast gifts__toast--error">{{ error() }}</div>
+  }
+
+  @if (loading()) {
+    <div class="gifts__state">Carregando...</div>
+  }
+
+  @if (!loading() && gifts().length === 0) {
+    <div class="gifts__state">Nenhum presente cadastrado</div>
+  }
+
+  @if (gifts().length > 0) {
+    <div class="gifts__grid">
+      @for (gift of gifts(); track gift.id) {
+        <div class="gift-card">
+          <div class="gift-card__image">
+            @if (gift.imageUrl) {
+              <img [src]="gift.imageUrl" [alt]="gift.name" />
+            } @else {
+              <div class="gift-card__placeholder">Sem imagem</div>
+            }
+          </div>
+          <div class="gift-card__body">
+            <h3 class="gift-card__name">{{ gift.name }}</h3>
+            @if (gift.description) {
+              <p class="gift-card__desc">{{ gift.description }}</p>
+            }
+            <span class="gift-card__value">{{ gift.value | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </div>
+          <div class="gift-card__actions">
+            <button app-button variant="ghost" size="sm" (click)="openEdit(gift)">Editar</button>
+            @if (deletingId() === gift.id) {
+              <span class="gifts__confirm">Remover?</span>
+              <button app-button variant="primary" size="sm" (click)="confirmDelete(gift.id)">Sim</button>
+              <button app-button variant="ghost" size="sm" (click)="cancelDelete()">Não</button>
+            } @else {
+              <button app-button variant="ghost" size="sm" (click)="startDelete(gift.id)">Remover</button>
+            }
+          </div>
+          <div class="gift-card__purchases">
+            @if (expandedId() === gift.id) {
+              @if (loadingPurchases()) {
+                <span class="gift-card__purchases-loading">Carregando...</span>
+              } @else if (purchases().length === 0) {
+                <span class="gift-card__purchases-empty">Nenhuma compra registrada</span>
+              } @else {
+                <ul class="gift-card__purchases-list">
+                  @for (p of purchases(); track p.id) {
+                    <li>
+                      <span>{{ p.guestName }}</span>
+                      @if (p.paid) {
+                        <span class="gift-card__paid">Pago</span>
+                      } @else {
+                        <span class="gift-card__unpaid">Pendente</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              }
+            }
+            <button
+              class="gift-card__toggle"
+              (click)="togglePurchases(gift.id)"
+            >
+              {{ expandedId() === gift.id ? 'Ocultar' : 'Ver quem comprou' }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (showForm()) {
+  <div class="modal-backdrop" (click)="closeForm()"></div>
+  <div class="modal">
+    <h2 class="modal__title">
+      {{ editingId() ? 'Editar presente' : 'Novo presente' }}
+    </h2>
+
+    <form class="modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="modal__field">
+        <label class="modal__label">Imagem</label>
+        <div class="modal__file-area">
+          @if (previewUrl()) {
+            <img class="modal__preview" [src]="previewUrl()" alt="Preview" />
+          } @else if (editingId()) {
+            <span class="modal__file-hint">Deixe vazio para manter a imagem atual</span>
+          }
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+        </div>
+      </div>
+
+      <div class="modal__field">
+        <label class="modal__label">Nome</label>
+        <input class="modal__input" type="text" formControlName="name" placeholder="Nome do presente" />
+      </div>
+
+      <div class="modal__field">
+        <label class="modal__label">Descrição</label>
+        <textarea class="modal__input modal__textarea" formControlName="description" placeholder="Opcional"></textarea>
+      </div>
+
+      <div class="modal__field">
+        <label class="modal__label">Valor (R$)</label>
+        <input class="modal__input" type="number" formControlName="value" step="0.01" min="0.01" />
+      </div>
+
+      <div class="modal__actions">
+        <button app-button type="button" variant="ghost" (click)="closeForm()">Cancelar</button>
+        <button app-button type="submit" [disabled]="saving() || form.invalid">
+          {{ saving() ? 'Salvando...' : 'Salvar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+}
