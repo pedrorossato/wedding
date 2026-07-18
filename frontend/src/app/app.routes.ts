@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
 import { HomeComponent } from './features/home/home.component';
+import { InviteComponent } from './features/invite/invite.component';
 import { LoginComponent } from './features/admin/auth/login.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 import { EventAdminComponent } from './features/admin/event/event.component';
@@ -12,6 +13,10 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'invite/:uuid',
+    component: InviteComponent,
   },
   {
     path: 'admin/login',

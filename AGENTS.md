@@ -129,7 +129,8 @@ Copiar `.env.example` para `.env`. Principais:
 | 18 | `feat: admin — presentes` | ✅ |
 | 19 | `feat: admin — galeria` | ✅ |
 | 20 | `feat: página inicial pública` | ✅ |
-| 21-27 | ... | ⬜ |
+| 21 | `feat: página de convite UUID` | ✅ |
+| 22-27 | ... | ⬜ |
 
 ## Design System (Frontend)
 

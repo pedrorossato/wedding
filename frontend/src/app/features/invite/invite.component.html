@@ -1,0 +1,59 @@
+<div class="invite">
+  @if (loading()) {
+    <div class="invite__loading">Carregando...</div>
+  }
+
+  @if (invite(); as data) {
+    <div class="invite__hero">
+      <p class="invite__greeting">Olá,</p>
+      <h1 class="invite__name">{{ data.name }}</h1>
+      <div class="invite__divider"><span></span></div>
+      <p class="invite__message">
+        É com muita alegria que convidamos você para celebrar o nosso casamento.
+      </p>
+
+      <div class="invite__dates">
+        <div class="invite__date-card">
+          <span class="invite__date-label">Dia do casamento</span>
+          <span class="invite__date-day">{{ formatDate(data.weddingDate) }}</span>
+          <span class="invite__date-time">{{ formatTime(data.weddingDate) }}</span>
+        </div>
+        <div class="invite__date-card">
+          <span class="invite__date-label">Confirme sua presença até</span>
+          <span class="invite__date-day">{{ formatDate(data.rsvpDeadline) }}</span>
+        </div>
+      </div>
+
+      @if (data.confirmed === null) {
+        <div class="invite__actions">
+          <button class="invite__btn invite__btn--primary" (click)="confirm(true)" [disabled]="confirming()">
+            {{ confirming() ? 'Confirmando...' : 'Confirmar presença' }}
+          </button>
+          <button class="invite__btn" (click)="confirm(false)" [disabled]="confirming()">
+            Não poderei ir
+          </button>
+        </div>
+      } @else if (data.confirmed) {
+        <div class="invite__status invite__status--confirmed">
+          &#10003; Presença confirmada
+        </div>
+      } @else {
+        <div class="invite__status invite__status--declined">
+          &#10005; Você recusou o convite
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Popup (success / error) -->
+  @if (popup(); as p) {
+    <div class="invite-overlay" [class.invite-overlay--clickable]="p.type !== 'error'" (click)="closePopup()"></div>
+    <div class="invite-popup" [class.invite-popup--success]="p.type === 'success'">
+      <h2 class="invite-popup__title">{{ p.title }}</h2>
+      <p class="invite-popup__message">{{ p.message }}</p>
+      <div class="invite-popup__actions">
+        <button class="invite-popup__btn" (click)="closePopup()">Fechar</button>
+      </div>
+    </div>
+  }
+</div>
