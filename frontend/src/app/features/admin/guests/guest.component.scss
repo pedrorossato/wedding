@@ -100,6 +100,7 @@
     padding: $space-md $space-lg;
     border-bottom: 1px solid $color-border;
     background: rgba($color-bg, 0.6);
+    user-select: none;
   }
 
   td {
@@ -112,6 +113,21 @@
   tr:last-child td {
     border-bottom: none;
   }
+}
+
+.guests__th--sortable {
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-primary-dark;
+  }
+}
+
+.guests__sort-icon {
+  font-size: 0.75rem;
+  margin-left: $space-xs;
+  color: $color-text-muted;
 }
 
 .guests__name {
@@ -185,6 +201,70 @@
   &--declined {
     background: rgba($color-floral, 0.12);
     color: #b05a5a;
+  }
+}
+
+// ─── Pagination ────────────────────────────
+.guests__pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  margin-top: $space-lg;
+  padding: $space-md 0;
+}
+
+.guests__pagination-info {
+  @include body-sm;
+  color: $color-text-secondary;
+}
+
+.guests__pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.guests__pagination-label {
+  @include body-sm;
+  color: $color-text-secondary;
+}
+
+.guests__pagination-select {
+  @include body-sm;
+  padding: $space-xs $space-sm;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-text;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+.guests__pagination-btn {
+  @include body-sm;
+  font-weight: 500;
+  padding: $space-sm $space-md;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary;
+    color: $color-primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 }
 

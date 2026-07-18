@@ -3,6 +3,10 @@ package com.pedrogio.wedding.guest;
 import com.pedrogio.wedding.event.EventConfig;
 import com.pedrogio.wedding.event.EventConfigRepository;
 import com.pedrogio.wedding.gift.GiftPurchaseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,10 +31,16 @@ public class GuestService {
         this.giftPurchaseRepository = giftPurchaseRepository;
     }
 
-    public List<GuestResponse> listAll() {
-        return repository.findAll().stream()
+    public PageResponse<GuestResponse> listAll(int page, int size, String sort, String order) {
+        Sort.Direction direction = Sort.Direction.fromString(order);
+        String sortField = sort.equals("status") ? "confirmed" : "name";
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
+        Page<Guest> pageResult = repository.findAll(pageable);
+        List<GuestResponse> content = pageResult.getContent().stream()
             .map(this::toResponse)
             .toList();
+        return new PageResponse<>(content, pageResult.getNumber(), pageResult.getSize(),
+            pageResult.getTotalElements(), pageResult.getTotalPages());
     }
 
     public GuestResponse getById(Long id) {

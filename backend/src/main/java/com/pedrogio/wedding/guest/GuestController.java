@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,8 +31,12 @@ public class GuestController {
     }
 
     @GetMapping("/admin/guests")
-    public ResponseEntity<List<GuestResponse>> listAll() {
-        return ResponseEntity.ok(guestService.listAll());
+    public ResponseEntity<PageResponse<GuestResponse>> listAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sort,
+            @RequestParam(defaultValue = "asc") String order) {
+        return ResponseEntity.ok(guestService.listAll(page, size, sort, order));
     }
 
     @GetMapping("/admin/guests/{id}")

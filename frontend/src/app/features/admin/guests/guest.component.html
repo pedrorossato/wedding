@@ -33,8 +33,12 @@
       <table class="guests__table">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Status</th>
+            <th class="guests__th--sortable" (click)="toggleSort('name')">
+              Nome <span class="guests__sort-icon">{{ sortIndicator('name') }}</span>
+            </th>
+            <th class="guests__th--sortable" (click)="toggleSort('status')">
+              Status <span class="guests__sort-icon">{{ sortIndicator('status') }}</span>
+            </th>
             <th>Link</th>
             <th></th>
           </tr>
@@ -101,6 +105,41 @@
           }
         </tbody>
       </table>
+    </div>
+
+    <div class="guests__pagination">
+      <div class="guests__pagination-info">
+        {{ totalElements() }} convidado(s) &mdash; página {{ page() + 1 }} de {{ totalPages() }}
+      </div>
+
+      <div class="guests__pagination-controls">
+        <label class="guests__pagination-label" for="pageSize">Exibir</label>
+        <select
+          id="pageSize"
+          class="guests__pagination-select"
+          [value]="size()"
+          (change)="setSize(+$any($event.target).value)"
+        >
+          @for (s of pageSizes; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+
+        <button
+          class="guests__pagination-btn"
+          [disabled]="page() === 0"
+          (click)="setPage(page() - 1)"
+        >
+          &lsaquo; Anterior
+        </button>
+        <button
+          class="guests__pagination-btn"
+          [disabled]="page() >= totalPages() - 1"
+          (click)="setPage(page() + 1)"
+        >
+          Próximo &rsaquo;
+        </button>
+      </div>
     </div>
   }
 </div>

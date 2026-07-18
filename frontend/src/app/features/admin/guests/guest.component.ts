@@ -1,6 +1,6 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { GuestService, GuestResponse } from '../../../core/guest.service';
+import { GuestService, GuestResponse, PageResponse } from '../../../core/guest.service';
 import { ButtonComponent } from '../../../shared/button/button.component';
 
 @Component({
@@ -16,6 +16,15 @@ export class GuestAdminComponent implements OnInit {
   readonly guests = signal<GuestResponse[]>([]);
   readonly loading = signal(true);
   readonly error = signal('');
+
+  readonly page = signal(0);
+  readonly size = signal(10);
+  readonly sort = signal('name');
+  readonly order = signal('asc');
+  readonly totalPages = signal(0);
+  readonly totalElements = signal(0);
+
+  readonly pageSizes = [5, 10, 50, 100];
 
   readonly editingId = signal<number | null>(null);
   readonly editForm = this.fb.nonNullable.group({
@@ -35,9 +44,11 @@ export class GuestAdminComponent implements OnInit {
   loadGuests() {
     this.loading.set(true);
     this.error.set('');
-    this.guestService.listAll().subscribe({
-      next: (data) => {
-        this.guests.set(data);
+    this.guestService.listAll(this.page(), this.size(), this.sort(), this.order()).subscribe({
+      next: (data: PageResponse<GuestResponse>) => {
+        this.guests.set(data.content);
+        this.totalPages.set(data.totalPages);
+        this.totalElements.set(data.totalElements);
         this.loading.set(false);
       },
       error: () => {
@@ -45,6 +56,34 @@ export class GuestAdminComponent implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  setPage(newPage: number) {
+    if (newPage < 0 || newPage >= this.totalPages()) return;
+    this.page.set(newPage);
+    this.loadGuests();
+  }
+
+  setSize(newSize: number) {
+    this.size.set(newSize);
+    this.page.set(0);
+    this.loadGuests();
+  }
+
+  toggleSort(column: string) {
+    if (this.sort() === column) {
+      this.order.set(this.order() === 'asc' ? 'desc' : 'asc');
+    } else {
+      this.sort.set(column);
+      this.order.set('asc');
+    }
+    this.page.set(0);
+    this.loadGuests();
+  }
+
+  sortIndicator(column: string): string {
+    if (this.sort() !== column) return '↕';
+    return this.order() === 'asc' ? '↑' : '↓';
   }
 
   onCreate() {
