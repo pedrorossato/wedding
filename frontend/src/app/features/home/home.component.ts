@@ -111,9 +111,9 @@ export class HomeComponent implements OnInit {
     const data = this.event();
     if (!data) return '';
     const d = new Date(data.weddingDate);
-    const dia = d.getUTCDate();
-    const mes = MESES_PT[d.getUTCMonth()];
-    const ano = d.getUTCFullYear();
+    const dia = d.getDate();
+    const mes = MESES_PT[d.getMonth()];
+    const ano = d.getFullYear();
     return `${dia} de ${mes} de ${ano}`;
   }
 
@@ -121,14 +121,14 @@ export class HomeComponent implements OnInit {
     const data = this.event();
     if (!data) return '';
     const d = new Date(data.weddingDate);
-    return DIAS_SEMANA_PT[d.getUTCDay()];
+    return DIAS_SEMANA_PT[d.getDay()];
   }
 
   formatWeddingTime(): string {
     const data = this.event();
     if (!data) return '';
     const d = new Date(data.weddingDate);
-    return `${String(d.getUTCHours()).padStart(2, '0')}h${String(d.getUTCMinutes()).padStart(2, '0')}`;
+    return `${String(d.getHours()).padStart(2, '0')}h${String(d.getMinutes()).padStart(2, '0')}`;
   }
 
   readonly onScrollInit = afterNextRender(() => {

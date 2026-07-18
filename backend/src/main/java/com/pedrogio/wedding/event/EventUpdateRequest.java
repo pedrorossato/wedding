@@ -2,9 +2,9 @@ package com.pedrogio.wedding.event;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record EventUpdateRequest(
-    @NotNull Instant weddingDate,
-    @NotNull Instant rsvpDeadline
+    @NotNull LocalDateTime weddingDate,
+    @NotNull LocalDateTime rsvpDeadline
 ) {}

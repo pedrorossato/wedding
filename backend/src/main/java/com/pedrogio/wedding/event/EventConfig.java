@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event_config")
@@ -29,8 +29,8 @@ public class EventConfig extends BaseEntity {
     private Long id;
 
     @Column(name = "wedding_date", nullable = false)
-    private Instant weddingDate;
+    private LocalDateTime weddingDate;
 
     @Column(name = "rsvp_deadline", nullable = false)
-    private Instant rsvpDeadline;
+    private LocalDateTime rsvpDeadline;
 }

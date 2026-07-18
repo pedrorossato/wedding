@@ -1,9 +1,9 @@
 package com.pedrogio.wedding.event;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record EventResponse(
     Long id,
-    Instant weddingDate,
-    Instant rsvpDeadline
+    LocalDateTime weddingDate,
+    LocalDateTime rsvpDeadline
 ) {}

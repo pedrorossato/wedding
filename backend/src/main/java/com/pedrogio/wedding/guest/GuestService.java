@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -83,7 +84,7 @@ public class GuestService {
         EventConfig event = eventConfigRepository.findTopByOrderByIdAsc()
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento nao configurado"));
 
-        if (Instant.now().isAfter(event.getRsvpDeadline())) {
+        if (LocalDateTime.now().isAfter(event.getRsvpDeadline())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Prazo de confirmacao encerrado");
         }
 

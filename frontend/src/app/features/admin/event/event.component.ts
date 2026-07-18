@@ -38,8 +38,8 @@ export class EventAdminComponent implements OnInit {
     this.eventService.getConfig().subscribe({
       next: (config) => {
         this.form.patchValue({
-          weddingDate: toDatetimeLocal(config.weddingDate),
-          rsvpDeadline: toDatetimeLocal(config.rsvpDeadline),
+          weddingDate: config.weddingDate?.slice(0, 16) || '',
+          rsvpDeadline: config.rsvpDeadline?.slice(0, 16) || '',
         });
         this.loading.set(false);
       },
@@ -59,8 +59,8 @@ export class EventAdminComponent implements OnInit {
     this.error.set('');
 
     this.eventService.update({
-      weddingDate: fromDatetimeLocal(this.form.value.weddingDate!),
-      rsvpDeadline: fromDatetimeLocal(this.form.value.rsvpDeadline!),
+      weddingDate: this.form.value.weddingDate!,
+      rsvpDeadline: this.form.value.rsvpDeadline!,
     }).subscribe({
       next: () => {
         this.success.set(true);
@@ -72,14 +72,4 @@ export class EventAdminComponent implements OnInit {
       },
     });
   }
-}
-
-function toDatetimeLocal(iso: string): string {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return d.toISOString().slice(0, 16);
-}
-
-function fromDatetimeLocal(local: string): string {
-  return new Date(local).toISOString();
 }
